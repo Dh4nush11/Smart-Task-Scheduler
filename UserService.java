@@ -1,0 +1,28 @@
+package com.dhanush.scheduler.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dhanush.scheduler.entity.User;
+import com.dhanush.scheduler.repository.UserRepository;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository repository;
+
+    public User register(User user){
+        return repository.save(user);
+    }
+
+    public User login(String email,String password){
+
+        return repository.findAll()
+                .stream()
+                .filter(u->u.getEmail().equals(email)
+                        && u.getPassword().equals(password))
+                .findFirst()
+                .orElse(null);
+    }
+}
